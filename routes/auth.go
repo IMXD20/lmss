@@ -37,7 +37,7 @@ func LoginUser(c *gin.Context) {
 	// passwd := c.PostForm("passwd")
 	email := getJSON(c, "email")
 	passwd := getJSON(c, "passwd")
-	
+
 	if email == "" || passwd == "" {
 		c.JSON(400, gin.H{"message": "FIELDS_REQUIRED"})
 		return
@@ -64,7 +64,6 @@ func LoginUser(c *gin.Context) {
 	tokenString, _ := token.SignedString([]byte("secret"))
 	c.JSON(200, gin.H{"message": "SUCCESS", "token": tokenString})
 }
-
 
 func GetUsers(c *gin.Context) {
 	rows, _ := db.Query("SELECT id, full_name, role, email, created_at FROM users")

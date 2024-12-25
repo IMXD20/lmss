@@ -2,7 +2,6 @@ package routes
 
 import (
 	"database/sql"
-	"encoding/json"
 	"log"
 	"strconv"
 
@@ -95,25 +94,22 @@ CREATE INDEX idx_contents_course ON contents(course_id);
 
 func getJSON(c *gin.Context, key string) string {
 	var jsonMap map[string]interface{}
-	err := json.NewDecoder(c.Request.Body).Decode(&jsonMap)
-	if err != nil {
-		return ""
-	}
-if val, ok := jsonMap[key]; ok {
-    // check data type
-    switch v := val.(type) {
-    case int:
-        return strconv.Itoa(v)
-    case int64:
-        return strconv.FormatInt(v, 10)
-    case float64:
-        return strconv.FormatFloat(v, 'f', -1, 64)
-    case string:
-        return v
-    default:
-        return ""
-    }
-} else {
+	c.ShouldBindBodyWithJSON(&jsonMap)
+	if val, ok := jsonMap[key]; ok {
+		// check data type
+		switch v := val.(type) {
+		case int:
+			return strconv.Itoa(v)
+		case int64:
+			return strconv.FormatInt(v, 10)
+		case float64:
+			return strconv.FormatFloat(v, 'f', -1, 64)
+		case string:
+			return v
+		default:
+			return ""
+		}
+	} else {
 		return ""
 	}
 }
