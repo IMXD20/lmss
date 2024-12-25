@@ -22,7 +22,7 @@ WORKDIR /app
 
 # Copy the Go binary from the builder stage
 COPY --from=builder /app/app .
-COPY --from=builder /app/example.db .
+# COPY --from=builder /app/example.db .
 
 # Expose the port that the web app listens on
 EXPOSE 8080
