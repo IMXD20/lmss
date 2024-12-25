@@ -1,6 +1,8 @@
 
 # API Documentation
 
+### Live API: http://llmss.150.230.237.119.sslip.io/
+
 ## Public Routes
 
 ### Register User

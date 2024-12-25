@@ -12,6 +12,18 @@ func main() {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
+	// Allow CORS
+	r.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+		c.Next()
+	})
+
 	auth := r.Group("/api")
 	auth.Use(routes.AuthMiddleware)
 
