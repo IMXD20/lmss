@@ -13,7 +13,7 @@ RUN go mod download
 COPY . .
 
 # Build the Go binary
-RUN CGO_ENABLED=0 GOOS=linux go build -o app .
+RUN GOEXPERIMENT=noregabi CGO_ENABLED=1 GOOS=linux go build -o app .
 
 EXPOSE 8080
 
