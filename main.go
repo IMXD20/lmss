@@ -37,6 +37,7 @@ func main() {
 	r.GET("/api/courses/:id", routes.GetCourseFull)
 
 
+	auth.GET("/profile", routes.GetProfile)
 	auth.POST("/enrollments", routes.EnrollCourse)
 	auth.GET("/enrollments", routes.GetEnrollments)
 	auth.DELETE("/enrollments/:course_id", routes.DerollCourse)

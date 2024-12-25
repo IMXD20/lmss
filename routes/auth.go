@@ -28,8 +28,16 @@ func RegisterUser(c *gin.Context) {
 	}
 	pwBytes, _ := bcrypt.GenerateFromPassword([]byte(passwd), bcrypt.DefaultCost)
 	stmt, _ := db.Prepare("INSERT INTO users (full_name, role, email, passwd, created_at) VALUES (?, ?, ?, ?, datetime('now'))")
-	stmt.Exec(fullName, "admin", email, string(pwBytes))
+	stmt.Exec(fullName, "user", email, string(pwBytes))
 	c.JSON(200, gin.H{"message": "SUCCESS"})
+}
+
+func GetProfile(c *gin.Context) {
+	_id := c.GetInt("id")
+	var id int
+	var fullName, role, email, createdAt string
+	db.QueryRow("SELECT id, full_name, role, email, created_at FROM users WHERE id = ?", _id).Scan(&id, &fullName, &role, &email, &createdAt)
+	c.JSON(200, gin.H{"message": "SUCCESS", "id": id, "full_name": fullName, "role": role, "email": email, "created_at": createdAt})
 }
 
 func LoginUser(c *gin.Context) {

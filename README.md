@@ -102,6 +102,22 @@
 
 ## Authenticated Routes
 
+### Get User
+- **URL:** `/api/profile`
+- **Method:** `GET`
+- **Description:** Retrieves the authenticated user's profile.
+- **Sample Output:**
+  ```json
+  {
+    "message": "SUCCESS",
+    "id": "1",
+    "full_name": "John Doe",
+    "role": "user",
+    "email": "x@x.com"
+  }
+  ```
+
+
 ### Enroll Course
 - **URL:** `/api/enrollments`
 - **Method:** `POST`
