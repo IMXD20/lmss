@@ -15,17 +15,6 @@ COPY . .
 # Build the Go binary
 RUN CGO_ENABLED=0 GOOS=linux go build -o app .
 
-# Stage 2: Create a minimal image to run the Go binary
-FROM alpine:latest
-
-WORKDIR /app
-
-# Copy the Go binary from the builder stage
-COPY --from=builder /app/app .
-# COPY --from=builder /app/example.db .
-
-# Expose the port that the web app listens on
 EXPOSE 8080
 
-# Set the command to run the Go binary
 CMD ["./app"]
